@@ -1,5 +1,5 @@
 import React from 'react' 
-import {Text, View, StyleSheet, Pressable} from 'react-native' 
+import {Text, View, StyleSheet, Pressable, FlatList, ScrollView} from 'react-native' 
  
  
 const PedidoDetalles = ({listaPedidos, setModalDetalles, datos, numeroOrden}) =>  {
@@ -13,25 +13,50 @@ const PedidoDetalles = ({listaPedidos, setModalDetalles, datos, numeroOrden}) =>
         
         
        
-       
-       
-       
+     const listaproductos = datosCliente.productos
+     
+     const listaFormateada = JSON.parse(listaproductos)
+     console.log(listaFormateada);
+
+     const filtrarDatos = (productos) => {
+        return productos.map(producto => ({
+            titulo: producto.titulo,
+            cantidad: producto.cantidad,
+            precio: producto.precio
+        }));
+    };
+
+    filtrarDatos(listaFormateada)
     
-        
+    
+    
+
+    
     
      
-    
-    
-    
-    
+     
+
    
     return (
+        
         <View style={styles.contenedor}> 
             
             <Text style={styles.label}>cliente: {datosCliente.nombre}</Text>
-            <View style={styles.product}>
-                <Text style={styles.label}>producto</Text>
-                <Text style={styles.label}>coste del producto</Text>
+            <View>
+            <FlatList
+                data={listaFormateada}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                    <View  style={styles.product}>
+                        <Text style={styles.cantidad}>{item.cantidad} {item.titulo}</Text>
+                         <Text style={styles.precio}>{item.precio}</Text>
+
+                         
+                    </View>
+                   
+                         
+                )}
+            />
             </View>
             <Text style={styles.label}>{datosCliente.nota == ''  ? <Text>sin nota</Text>: datosCliente.nota}</Text>
             <Text style={styles.label}>direccion</Text>
@@ -44,7 +69,11 @@ const PedidoDetalles = ({listaPedidos, setModalDetalles, datos, numeroOrden}) =>
                     <Text style={styles.txtbtn}>cerrar</Text>
                 </Pressable>
             </View>
+            <View style={styles.container}>
+            
         </View>
+        </View>
+        
 )} 
 
 
@@ -56,6 +85,7 @@ contenedor:{
     borderRadius: 10
 
 },
+ //FIXME: arreglar la posision del boton cerra, al tener muchos productos, se desconfigura
 btncerrar:{
     backgroundColor: 'red',
     position: 'absolute',
@@ -76,7 +106,8 @@ txtbtn:{
 },
 product:{
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginHorizontal: 10
 },
 label:{
     fontSize: 20,
@@ -89,6 +120,24 @@ preciototal:{
     position: 'absolute',
     bottom: 90,
     left: 280
+},
+cantidad:{
+    fontSize: 20,
+    paddingVertical: 10,
+    fontWeight: 'bold',
+
+},
+titulo:{
+    fontSize: 20,
+    paddingVertical: 10,
+    marginHorizontal: 10,
+    fontWeight: 'bold',
+},
+precio:{
+    fontSize: 20,
+    paddingVertical: 10,
+    marginLeft: 10,
+    fontWeight: 'bold',
 }
  
  })

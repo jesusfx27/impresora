@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react' 
-import {Text, View, StyleSheet, Pressable, Modal, TextInput} from 'react-native' 
+import {Text, View, StyleSheet, Pressable, Modal, TextInput, Alert} from 'react-native' 
 import RNPrint from 'react-native-print';
 import Ordenes from './src/components/modal';
 import NuevoPedido from './src/components/nuevopedido';
 import Pedido from './src/components/pedido';
 import PedidoDetalles from './src/components/pedidodetalles';
 
-//API´s
-const reservas = 'https://restaurant.ninjastudio.dev/api/pedidosBySucursal/' // colocar numero de sucursal para continuar
-const pedidosApi = 'https://restaurant.ninjastudio.dev/api/pedidoGet.php' 
+
 
 const App = () =>  {
   const [modalDetalles, setModalDetalles] = useState (false)
@@ -16,6 +14,7 @@ const App = () =>  {
   const [sucursal, setSucursal] = useState ('')
   const [restaurante, setRestaurante] = useState(false)
   const [numeroOrden, setNumeroOrden] = useState('')
+  const [reservas, setReservas] = useState ('')
 
  
   
@@ -40,7 +39,10 @@ const App = () =>  {
       
     }else{
 
-      console.log("sucursal invalida");
+      Alert.alert(
+        'Error',
+        'No existe suscusal'
+      )
     }
 
   }
@@ -49,19 +51,29 @@ const App = () =>  {
     const consultarApi = async () => {
 
       try {
+
+        const reservasApi = `https://restaurant.ninjastudio.dev/api/reservasBySucursal/${sucursal}`
+        const pedidosApi = `https://restaurant.ninjastudio.dev/api/pedidosBySucursal/${sucursal}`
         const response = await fetch(pedidosApi)
+        const respuesta = await fetch(reservasApi)
   
         if(response){
           const result = await response.json()
           const filtrarpedidos = (result.pedidos)
           
-  
+          setListaPedidos(filtrarpedidos)
+
+          const resultado = await respuesta.json()
+          const reservasFiltrades = resultado.reservas
+          setReservas(reservasFiltrades);
           
-          const pedidosfiltrados = filtrarpedidos.filter((pedido) => pedido.estado === 'Pendiente' && pedido.sucursal === sucursal) 
-          setListaPedidos(pedidosfiltrados)
-          console.log(pedidosfiltrados);
           
-       
+          // const pedidosfiltrados = filtrarpedidos.filter((pedido) => pedido.estado === 'Pendiente' && pedido.sucursal === sucursal) 
+          // setListaPedidos(pedidosfiltrados)
+          // console.log(pedidosfiltrados);
+          
+          //añadir logica para api reservas
+
         }
         
       } catch (error) {
@@ -105,9 +117,12 @@ const App = () =>  {
               sucursal={sucursal}
               modalDetalles={modalDetalles}
               setNumeroOrden={setNumeroOrden}
-              numeroOrden={numeroOrden}/>
+              numeroOrden={numeroOrden}
+              reservas ={reservas}/>
               </Modal>
               )}
+
+              
 
       </View>
         

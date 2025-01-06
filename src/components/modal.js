@@ -2,9 +2,10 @@ import React from 'react'
 import {Text, View, StyleSheet, Modal, ScrollView} from 'react-native'
 import PedidoDetalles from './pedidodetalles'
 import NuevoPedido from './nuevopedido'
+import Reserva from './reservas'
  
  
-const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles, numeroOrden, setNumeroOrden}) =>  {
+const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles, numeroOrden, setNumeroOrden, reservas}) =>  {
     return (
 
         <View> 
@@ -24,6 +25,12 @@ const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles, numero
                     <Text style={styles.pedidos}>no hay pedidos</Text>}
                     </View>
 
+                        <View>
+                            {reservas.length > 0 && (
+                                <Reserva 
+                                reservas= {reservas}/>
+                            )}
+                        </View>
                     <View>
                     {modalDetalles && (
                     <Modal 

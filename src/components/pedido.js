@@ -1,5 +1,5 @@
 import React from 'react' 
-import {Text, View, StyleSheet, Pressable} from 'react-native' 
+import {Text, View, StyleSheet, Pressable, ScrollView} from 'react-native' 
 import PedidoDetalles from './pedidodetalles';
  
  
@@ -14,7 +14,7 @@ const Pedido = ({datos, setModalDetalles, numeroOrden, setNumeroOrden}) =>  {
    
     
     return (
-
+      <ScrollView>
       <Pressable
       onPress={()=> {
          setNumeroOrden(idPedido)
@@ -26,7 +26,7 @@ const Pedido = ({datos, setModalDetalles, numeroOrden, setNumeroOrden}) =>  {
                      <Text style={styles.label}>{nombre}</Text>
                      <Text style={styles.label}>{total} Eur</Text>
                      <Text style={styles.label}>{nota == '' ?  <Text>sin nota</Text> :nota }</Text>
-                     <Text style={styles.label}> Pedido #{idPedido}</Text>
+                     <Text style={styles.label}>Pedido #{idPedido}</Text>
                </View>
 
                <View>
@@ -46,6 +46,7 @@ const Pedido = ({datos, setModalDetalles, numeroOrden, setNumeroOrden}) =>  {
          </View>
       </View>
       </Pressable>
+      </ScrollView>
         )} 
 
 
