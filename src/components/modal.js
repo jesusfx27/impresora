@@ -1,10 +1,10 @@
 import React from 'react' 
 import {Text, View, StyleSheet, Modal, ScrollView} from 'react-native'
-import NuevoPedido from './nuevopedido'
 import PedidoDetalles from './pedidodetalles'
+import NuevoPedido from './nuevopedido'
  
  
-const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles}) =>  {
+const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles, numeroOrden, setNumeroOrden}) =>  {
     return (
 
         <View> 
@@ -18,7 +18,9 @@ const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles}) =>  {
                     {listaPedidos.length > 0 ? 
                     <NuevoPedido
                     listaPedidos= {listaPedidos}
-                    setModalDetalles={setModalDetalles}/> :
+                    setModalDetalles={setModalDetalles}
+                    setNumeroOrden={setNumeroOrden}
+                    numeroOrden={numeroOrden}/> :
                     <Text style={styles.pedidos}>no hay pedidos</Text>}
                     </View>
 
@@ -29,7 +31,9 @@ const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles}) =>  {
                         animationType='slide'>
                     <PedidoDetalles 
                         listaPedidos= {listaPedidos}
-                        setModalDetalles= {setModalDetalles}/>
+                        setModalDetalles= {setModalDetalles}
+                        numeroOrden= {numeroOrden}
+                        />
                     </Modal>)}
                     </View>
                 </View>
@@ -44,7 +48,9 @@ const Ordenes = ({listaPedidos, setModalDetalles,sucursal, modalDetalles}) =>  {
 const styles = StyleSheet.create({
     ctn1:{
         marginTop: 20,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        
+        
         },
         title:{
         fontWeight: 'bold',
@@ -57,28 +63,10 @@ const styles = StyleSheet.create({
         fontSize: 24,
         textTransform: 'uppercase',
         textAlign: 'center',
-        paddingTop: 20
-        },
-        inputtxt:{
-        backgroundColor: 'grey',
-        borderRadius: 10,
-        textAlign: 'center',
-        marginTop: 30,
-        marginHorizontal: 20
-        },
-        btn:{
-        marginTop: 20,
-        backgroundColor: 'blue',
-        width: '50%',
-        borderRadius: 10,
-        marginHorizontal: 100
+        paddingTop: 20 
         
         },
-        btntxt:{
-        padding: 10,
-        color: 'white',
-        textAlign: 'center'
-        }
+       
         
         })
  

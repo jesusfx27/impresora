@@ -1,77 +1,98 @@
 import React from 'react' 
 import {Text, View, StyleSheet, Pressable} from 'react-native' 
+import PedidoDetalles from './pedidodetalles';
  
  
-const Pedido = ({datos}) =>  {
-    const {nombre, total} = datos 
+const Pedido = ({datos, setModalDetalles, numeroOrden, setNumeroOrden}) =>  {
+    
+
+    
+
+   const {nombre, total, nota, idPedido} = datos
+    
+      
+   
+    
     return (
-      <View>
-        <View style={styles.orientacion}> 
-               <View  style={styles.datacontainer}>
-                    <Text style={styles.name}>{nombre}</Text>
-                    <Text style={styles.total}>{total} Eur</Text>
-                    <Text style={styles.address}>{nombre}</Text>
+
+      <Pressable
+      onPress={()=> {
+         setNumeroOrden(idPedido)
+         setModalDetalles(true)
+       }}>
+      <View style={styles.contenedor}>
+         <View style={styles.orientacion}>
+               <View> 
+                     <Text style={styles.label}>{nombre}</Text>
+                     <Text style={styles.label}>{total} Eur</Text>
+                     <Text style={styles.label}>{nota == '' ?  <Text>sin nota</Text> :nota }</Text>
+                     <Text style={styles.label}> Pedido #{idPedido}</Text>
                </View>
 
-               <View style={styles.printctn}>
+               <View>
+                  <View  style={styles.printctn}>
                      <Pressable style={styles.btn} 
                      on onPress={()=> console.log('imprimiendo')
                      }>
-                        <Text>print</Text>
+                        <Text style={styles.btntxt}>print</Text>
                      </Pressable>
                      <Pressable style={styles.btn} 
                      on onPress={()=> console.log('producto enviado')
                      }>
-                        <Text>enviado</Text>
+                        <Text style={styles.btntxt}>enviado</Text>
                      </Pressable>
+                     </View>
                </View>
-            
-        </View>
-        </View>
+         </View>
+      </View>
+      </Pressable>
         )} 
 
 
 const styles = StyleSheet.create({
     
         
-   name:{
+   label:{
       marginBottom: 5,
       fontSize: 16,
       fontWeight: 'bold',
-      color: 'white'
-   },
-   total:{
-      fontSize: 15,
       color: 'white',
-      fontWeight: 'bold'
+      marginHorizontal: 5
    },
-   address:{
-      fontSize: 15,
-      color: 'white',
-      fontWeight: 'bold'
-   },
-   
-   datacontainer:{
-      
-      backgroundColor: 'grey',
-      borderRadius: 5,
-      marginTop: 20,
-      padding: 20,
-      flex: 1
-   },
+  
    printctn:{
+      
+      flex: 1,
       justifyContent: 'space-evenly'
+     
+      
    },
    btn:{
      backgroundColor: 'red',
-     width: 50,
-     height: 50
+     width: 80,
+     height: 30,
+     borderRadius: 10,
    },
    orientacion:{
       flexDirection: 'row',
-      justifyContent: 'space-between'
-      
+      justifyContent:'space-between',
+      alignItems:'center',
+   },
+   contenedor: {
+      backgroundColor: 'grey',
+      marginVertical: 10,
+      borderRadius: 10,
+      padding: 10
+   },
+   btntxt: {
+      textAlign: 'center',
+      color: 'white',
+      fontSize: 16,
+      fontWeight: 'bold',
+      textTransform: 'capitalize',
+      margin: 2
    }
+   
    
         
 })

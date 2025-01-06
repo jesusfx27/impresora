@@ -1,54 +1,39 @@
 import React, { useState } from 'react' 
 import {Text, View, StyleSheet, Pressable} from 'react-native' 
 import Pedido from './pedido'
+import PedidoDetalles from './pedidodetalles'
  
  
-const NuevoPedido = ({listaPedidos, setModalDetalles}) =>  {
+const NuevoPedido = ({listaPedidos, setModalDetalles, setNumeroOrden, NumeroOrden}) =>  {
 
    
     
+    
+   
 
     return (
          
-            <View style= {styles.datacontainer}>
-                <Pressable style= {styles.btnpedido}
-                onPress={() =>{
-                    setModalDetalles(true)
-                        
-                }
-                }
+            
                 
-                >
+            <View style={styles.test}>
                 {listaPedidos.map (datos => (
                     <Pedido 
                     key={datos.idPedido}
-                    datos = {datos}/>
+                    datos = {datos}
+                    listaPedidos={listaPedidos}
+                    setModalDetalles={setModalDetalles}
+                    setNumeroOrden={setNumeroOrden}/>
                     
               ))}
-              </Pressable>
-            </View>
+              </View>
+            
             
 )} 
 
 
 const styles = StyleSheet.create({
 
- name:{
-    marginBottom: 5,
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white'
- },
- total:{
-    fontSize: 15,
-    color: 'white',
-    fontWeight: 'bold'
- },
- address:{
-    fontSize: 15,
-    color: 'white',
-    fontWeight: 'bold'
- }
+
  
  })
 

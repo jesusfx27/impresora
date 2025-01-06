@@ -11,14 +11,15 @@ const reservas = 'https://restaurant.ninjastudio.dev/api/pedidosBySucursal/' // 
 const pedidosApi = 'https://restaurant.ninjastudio.dev/api/pedidoGet.php' 
 
 const App = () =>  {
-  const [pedidos, setPedidos] = useState ([])
   const [modalDetalles, setModalDetalles] = useState (false)
   const [listaPedidos, setListaPedidos] = useState([])
   const [sucursal, setSucursal] = useState ('')
-  const [sucursalTemp, setSucursalTemp] = useState('')
   const [restaurante, setRestaurante] = useState(false)
+  const [numeroOrden, setNumeroOrden] = useState('')
+
+ 
   
-  
+ 
 
   const printDocument = async () => {
     try {
@@ -91,6 +92,9 @@ const App = () =>  {
           </Pressable>
         </View>
 
+        {/* <----------1ra pantalla------------->
+      // aqui pasa la confirmacion de la primera pantalla */}
+
           {restaurante &&(
             <Modal visible={restaurante}
             animationType='slide'>
@@ -99,7 +103,9 @@ const App = () =>  {
               listaPedidos= {listaPedidos}
               setModalDetalles= {setModalDetalles}
               sucursal={sucursal}
-              modalDetalles={modalDetalles}/>
+              modalDetalles={modalDetalles}
+              setNumeroOrden={setNumeroOrden}
+              numeroOrden={numeroOrden}/>
               </Modal>
               )}
 
